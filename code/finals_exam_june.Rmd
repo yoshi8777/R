@@ -1,0 +1,449 @@
+```{r}
+library(tidyverse)
+```
+
+b. Find the correlation between age and circumference of Orange dataset. Show the relation 
+graphically.(   QUESTION    )
+```{r}
+Orange
+cor.test(Orange$age,Orange$circumference)
+g=Orange %>% ggplot(aes(x=age,y=circumference))
+g+geom_line(color="red")+geom_smooth()
+g+geom_point()
+```
+b. Find the correlation between age and circumference of Orange dataset. Show the relation 
+graphically.(   QUESTION    )
+
+```{r}
+#factor color depends on the data 
+#qplot(age,data=Orange,geom='histogram',color=factor(cyl))+labs(x="xaxis",y="ccc")
+qplot(displ,data=mpg,geom='histogram',color=factor(cyl))+labs(x="fbbfd")
+
+```
+
+
+```{r}
+
+```
+
+
+```{r}
+p1=data.frame(u=c("uzair","qq","aa"),
+              w=c(1,2,3),
+              e=c(122,33,44),
+              row.names = c('q','s','dd'),stringsAsFactors =FALSE)
+# if u miss one attribute also in the colnames u will still get the coutput
+colnames(p1)=c("1st","","3rd")
+p1
+```
+1. Build the suitable model to find the relation between the marks of a student and number of 
+hours studied. Also show graphically. Predict the marks of a student with 6 hours studied. 
+Hours Marks
+3 65
+3.5 67
+2 58
+4 72
+4.5 78
+5 83
+6.3 85
+7 89
+
+```{r}
+df = data.frame(
+  Hou = c(3, 3.5, 2, 4, 4.5, 5, 6.3, 7),
+  Marks = c(65, 67, 58, 72, 78, 83, 85, 89)
+)
+Hou = c(3, 3.5, 2, 4, 4.5, 5, 6.3, 7)
+  Marks = c(65, 67, 58, 72, 78, 83, 85, 89)
+rel=lm(Marks~Hou)
+print(summary(rel))
+
+```
+
+
+```{r}
+d1=data.frame(Hou=6)
+pp=predict(rel,d1)
+print(pp)
+```
+q2)2 . Build a suitable model to find the relation between the variables sepal length, petal length of 
+iris dataset. Explain the summary of the model. Predict the petal length for sepal length of 3.2
+
+
+```{r}
+
+iris
+re=lm(iris$Petal.Length~iris$Sepal.Length)
+summary(re)
+rr=data.frame(Sepal.Length=3.2)
+pre=predict(re,rr)
+print(pre)
+```
+3. a. Test whether two proportions 43 out of 120 and 56 out of 110 are statistically same or 
+different
+
+
+```{r}
+prop.test(c(43,56),c(120,110))
+```
+b. Find the correlation between age and circumference of Orange dataset. Show the relation 
+graphically.
+
+
+```{r}
+cor.test(Orange$age,Orange$circumference)
+g=Orange %>% ggplot(aes(x=age,y=circumference))
+g+geom_line(color='purple')
+```
+c. Find the relation between gears and am variables of mtcars dataset. Explain the hypothesis 
+and conclusion
+
+```{r}
+mtcars
+d=table(mtcars$gear,mtcars$am)
+d
+chisq.test(d)
+fisher.test(d)
+```
+4. a. Find the correlation between passengers in the months Jan and Feb of AirPassengers 
+dataset. Show the relation graphically.
+
+
+```{r}
+AirPassengers
+jan=c(112,115,145,171,196,204,242,284,315,340,360,417)
+feb=c(118,126,150,180,196,188,233,277,301,318,342,391)
+cor.test(jan,feb)
+```
+
+b. Analyze the variance between Airbags, type and price of Cars93 dataset. Explain the hypothesis 
+and conclusion
+
+```{r}
+Cars93
+a=aov(Price~Type*AirBags,data=Cars93)
+a
+```
+c. Find out is there any significant correlation between the types of car sold and the type of Air 
+bags it has from Cars93 dataset
+# ye WALA CORRELATION NAHI THA THIS IS CHISQ BUT QUESTION SAYS (significant CORRELATION WTF)
+```{r}
+Cars93
+#cr=data.frame(type=c(Cars93$Type),air=c(Cars93$AirBags))
+cr=table(Cars93$Type,Cars93$AirBags)
+cr
+chisq.test(cr)
+
+```
+5. Predict the salary of a person with the years of experience 3.5. Plot the graph that shows the 
+relation between years experienced and Salary using ggplot2.
+Years experienced Salary
+ 1.1 393
+ 1.3 462
+ 1.5 377
+ 2.0 435
+ 2.2 398
+ 2.9 566
+ 3.0 601
+ 3.2 544
+ 3.7 571
+
+
+```{r}
+dff <- data.frame(
+  Years = c(1.1, 1.3, 1.5, 2.0, 2.2, 2.9, 3.0, 3.2, 3.7),
+  Salary = c(393, 462, 377, 435, 398, 566, 601, 544, 571))
+  Years = c(1.1, 1.3, 1.5, 2.0, 2.2, 2.9, 3.0, 3.2, 3.7)
+  Salary = c(393, 462, 377, 435, 398, 566, 601, 544, 571)
+
+re=lm(Salary~Years)
+summary(re)
+red=data.frame(Years=3.5)
+pr=predict(re,red)
+print(pr)
+
+```
+6. Write a R program to find the relation between the independent variables disp, wt and 
+dependent variable vs. Find the accuracy of the model
+
+```{r}
+mtcars
+q=aov(vs~factor(disp+wt),data=mtcars)
+q
+
+```
+7. a. Find the correlation between sepal length and petal length of iris dataset. Show the relation 
+graphically.
+
+
+```{r}
+cor.test(iris$Sepal.Length,iris$Petal.Length)
+qplot(Sepal.Length,Petal.Length,data=iris,geom=c("line","smooth"))
+```
+b. Test whether two proportions 23 out of 90 and 34 out of 110 are statistically same or different
+
+
+```{r}
+prop.test(c(23,34),c(90,110))
+```
+
+c. Find the mean variance between Airbags, type and price of Cars93 dataset
+
+```{r}
+a=aov(Price~Type*AirBags,data=Cars93)
+a
+```
+#8. a. Find correlation between wind and temp of airquality dataset and plot a scatterplot using ggplot2
+
+```{r}
+airquality
+cor.test(airquality$Temp,airquality$Temp)
+ggplot(data=airquality)+geom_line(mapping =aes(x=Wind,y=Temp))
+```
+#b. Find the relation between manufacturer and type variables Cars93 dataset
+
+
+```{r}
+b=table(Cars93$Manufacturer,Cars93$Type)
+chisq.test(b)
+
+```
+#c. Find the mean variance between gears and hp variables of mtcars dataset
+
+```{r}
+mtcars
+mea=aov(gear~hp,data=mtcars)
+mea
+```
+9. A multiplex INOX charges the following rates for the parking as given below. Write R program 
+which will take hours as an input and calculate parking bill according to the given table. 
+ Hours Rate of charge 
+ < 1 Rs .40 
+ 1-2 Rs 60 
+ 2-3 Rs 80 
+ Above 3 Rs 100
+
+```{r}
+n=as.integer(readline("enter the number"))
+
+if(n>=1)
+{
+  print("rupeees 40")
+}else if(n>=1 && n<=2)
+  {
+    print("rupees 60")
+}else if(n>=2 && n<=3)
+{
+  print("rupees 80")
+}else if(n>3){
+  print("100 ruppees")
+}else{
+  print("fucked")
+}
+
+
+```
+
+# Write R program to check whether a number is prime or not. 
+```{r}
+
+primen=function(n)
+{
+  count=0
+  if(n<=1)
+  {
+    return(FALSE)
+  }
+  else if(n==2)
+  {
+    return(TRUE)
+  }
+  for(i in 1:n)
+  {
+    if(n%%i==0){
+      count=count+1
+    }
+  }
+  if(count==2)
+  {
+    print("the number is prime")
+  }
+  else{
+    print("the number is not prime")
+  }
+}
+n=as.integer(readline("enter the number to check weather the number is prime or not"))
+primen(n)
+```
+11. Write R program for the following questions 
+
+a) Create a data frame Employee with the variables name, age, dept and salary with four rows. 
+
+
+
+```{r}
+# Create the data frame
+em <- data.frame(
+  name = c("John", "Sarah", "Michael", "Emily"),
+  age = c(32, 28, 35, 30),
+  dept = c("HR", "Marketing", "Finance", "IT"),
+  salary = c(50000, 60000, 70000, 55000)
+)
+
+# Print the data frame
+print(em)
+
+library(dplyr)
+```
+b) Add new column address and display the columns, name and address
+
+```{r}
+em$address=c("cannada","mumbai","america","london")
+select(em,name,address)
+em
+```
+c) Sort the employee name based on salary in ascending order and display the employee with 
+maximum salary.
+
+```{r}
+library(dplyr)
+
+# Sort the data frame by salary in ascending order and display employee with maximum salary
+Employee %>%
+  arrange(salary) %>%
+  filter(row_number() == n()) 
+
+```
+
+```{r}
+q=em %>% arrange(salary) %>% select(name,salary)
+q
+q[4,]
+```
+
+d) Remove the column address and display 2nd and 3rd row with name and age of the employee.
+
+```{r}
+#em=select(em,-address)
+em[c(2:3),c(1,2)]
+```
+
+e) Find the employee whose age is between 35 and 40
+
+```{r}
+filter(em,age==35 & age <=40) %>% select(name)
+```
+f) Update salary of all employees by 5000. Plot bar graph to show the updated salaries
+
+```{r}
+#mutate(em,salary=salary+5000)
+barplot(em$salary, names.arg = em$name, xlab = "Employee", ylab = "Salary", main = "Updated Salaries")
+```
+13. Write R program for the following questions 
+a) Create a data frame Product with the variables name, price, rating and quantity with four 
+rows. 
+
+
+```{r}
+# Create the data frame
+p11 <- data.frame(
+  name = c("Product A", "Product B", "Product C", "Product D"),
+  price = c(10.99, 19.99, 15.50, 12.75),
+  rating = c(4.5, 3.8, 4.2, 4.0),
+  quantity = c(100, 50, 75, 120)
+)
+
+# Print the data frame
+print(P11)
+
+```
+
+b) Add the column shop_name and display the data frame with product name and shop_name.
+
+```{r}
+p11=cbind(p11,shp_nm=c("kasim","bakala","mbakala","othaim"))
+p11
+```
+c) Sort the product name based on price in descending order and display the product with 
+maximum price.
+
+
+```{r}
+q1=p11 %>% arrange(desc(price)) 
+q1
+```
+
+d) Remove the column, rating and display 1st and 3rd row with name and rating of the product.
+
+```{r}
+p11=select(p11,-rating)
+p11[c(1:3),]
+```
+e) Find the product whose rating is between 5 and 10
+
+
+```{r}
+filter(p11,rating >2 & rating<=10)
+```
+f) Increment the price of all products by 15 Rs. Plot bar graph to show the updated price with 
+product name.
+
+```{r}
+#p11=mutate(p11,price=price+15)
+
+barplot(p11$price,names.arg = p11$name,col="green")
+```
+
+# THE OTHER DATA FRAME PRACTISE QUESTIONS
+```{r}
+st=data.frame(name=c('A','B','C'),
+ rollno=c(101,102,103),
+ age=c(21,24,23),
+ marks=c(50,43,56))
+
+st
+```
+
+
+```{r}
+str(st)
+summary(st)
+```
+
+
+
+```{r}
+st[,1]
+st[c(1:2),]
+st[c(3:4),c(1:3)]
+
+```
+
+
+```{r}
+st=cbind(st,address=c("usa","ksa","canada"))
+st
+```
+
+
+```{r}
+st=select(st,-address)
+st
+```
+
+
+```{r}
+st=st[-c(2,3),]
+st
+```
+
+
+```{r}
+arrange(st,name)
+```
+
+
+```{r}
+
+```
+
